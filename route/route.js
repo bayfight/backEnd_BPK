@@ -275,117 +275,115 @@ router.post('/addToCart', (req, res) => {
 
 // DELETE ITEM CART
 
-router.delete('/deleteCart', (req, res) => {
-    const { id_user, id_product, quantity } = req.body;
+// router.delete('/deleteCart', (req, res) => {
+//     const { id_user, id_product, quantity } = req.body;
 
-    const getQuantity = `SELECT product.quantity from product where id = ${id_product}`;
+//     const getQuantity = `SELECT product.quantity from product where id = ${id_product}`;
 
-    let quantityProduct;
-    let setStatusCart = `UPDATE cart SET cart.status = 5 WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
-    db.query(setStatusCart, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            db.query(getQuantity, (err, result2) => {
-                if (err) {
-                    throw err;
-                } else {
-                    quantityProduct = result2[0].quantity
-                    let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct + quantity} WHERE product.id = ${id_product}`
-                    db.query(setQuantity, (err, result3) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    res.send({ status: 'sukses' })
-                }
-            })
-        }
-    })
-})
+//     let quantityProduct;
+//     let setStatusCart = `UPDATE cart SET cart.status = 5 WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
+//     db.query(setStatusCart, (err, result) => {
+//         if (err) {
+//             throw err;
+//         } else {
+//             db.query(getQuantity, (err, result2) => {
+//                 if (err) {
+//                     throw err;
+//                 } else {
+//                     quantityProduct = result2[0].quantity
+//                     let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct + quantity} WHERE product.id = ${id_product}`
+//                     db.query(setQuantity, (err, result3) => {
+//                         if (err) {
+//                             throw err;
+//                         }
+//                     })
+//                     res.send({ status: 'sukses' })
+//                 }
+//             })
+//         }
+//     })
+// })
 
 // TAMBAH QUANTITY CART
-router.post('/add-quantity-cart', (req, res) => {
-    const { id_user, id_product, quantity } = req.body;
+// router.post('/add-quantity-cart', (req, res) => {
+//     const { id_user, id_product, quantity } = req.body;
 
-    const getCartQuantity = `SELECT cart.quantity from cart where id_user = ${id_user} and id_product =${id_product} and status = 1`
-    const getQuantityProduct = `SELECT product.quantity from product where id = ${id_product}`;
-    let quantityProduct;
-    let quantityCart;
+//     const getCartQuantity = `SELECT cart.quantity from cart where id_user = ${id_user} and id_product =${id_product} and status = 1`
+//     const getQuantityProduct = `SELECT product.quantity from product where id = ${id_product}`;
+//     let quantityProduct;
+//     let quantityCart;
 
-    db.query(getCartQuantity, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            console.log('resultnya', result);
-            quantityCart = result[0].quantity;
-            const setStatusCart = `UPDATE cart SET cart.quantity = ${quantityCart + 1} WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
-            db.query(setStatusCart, (err, result) => {
-                if (err) {
-                    throw err;
-                } else {
-                    db.query(getQuantityProduct, (err, result2) => {
-                        if (err) {
-                            throw err;
-                        } else {
-                            quantityProduct = result2[0].quantity
-                            let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct - 1} WHERE product.id = ${id_product}`
-                            db.query(setQuantity, (err, result3) => {
-                                if (err) {
-                                    throw err;
-                                }
-                            })
-                            res.send({ status: 'sukses' })
-                        }
-                    })
-                }
-            })
-        }
-    })
-})
+//     db.query(getCartQuantity, (err, result) => {
+//         if (err) {
+//             throw err;
+//         } else {
+//             console.log('resultnya', result);
+//             quantityCart = result[0].quantity;
+//             const setStatusCart = `UPDATE cart SET cart.quantity = ${quantityCart + 1} WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
+//             db.query(setStatusCart, (err, result) => {
+//                 if (err) {
+//                     throw err;
+//                 } else {
+//                     db.query(getQuantityProduct, (err, result2) => {
+//                         if (err) {
+//                             throw err;
+//                         } else {
+//                             quantityProduct = result2[0].quantity
+//                             let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct - 1} WHERE product.id = ${id_product}`
+//                             db.query(setQuantity, (err, result3) => {
+//                                 if (err) {
+//                                     throw err;
+//                                 }
+//                             })
+//                             res.send({ status: 'sukses' })
+//                         }
+//                     })
+//                 }
+//             })
+//         }
+//     })
+// })
+
 
 // KURANG QUANTITY CART
-router.post('/min-quantity-cart', (req, res) => {
-    const { id_user, id_product, quantity } = req.body;
+// router.post('/min-quantity-cart', (req, res) => {
+//     const { id_user, id_product, quantity } = req.body;
 
-    const getCartQuantity = `SELECT cart.quantity from cart where id_user = ${id_user} and id_product =${id_product} and status = 1`
-    const getQuantityProduct = `SELECT product.quantity from product where id = ${id_product}`;
-    let quantityProduct;
-    let quantityCart;
+//     const getCartQuantity = `SELECT cart.quantity from cart where id_user = ${id_user} and id_product =${id_product} and status = 1`
+//     const getQuantityProduct = `SELECT product.quantity from product where id = ${id_product}`;
+//     let quantityProduct;
+//     let quantityCart;
 
-    db.query(getCartQuantity, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            console.log('resultnya', result);
-            quantityCart = result[0].quantity;
-            const setStatusCart = `UPDATE cart SET cart.quantity = ${quantityCart - 1} WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
-            db.query(setStatusCart, (err, result) => {
-                if (err) {
-                    throw err;
-                } else {
-                    db.query(getQuantityProduct, (err, result2) => {
-                        if (err) {
-                            throw err;
-                        } else {
-                            quantityProduct = result2[0].quantity
-                            let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct + 1} WHERE product.id = ${id_product}`
-                            db.query(setQuantity, (err, result3) => {
-                                if (err) {
-                                    throw err;
-                                }
-                            })
-                            res.send({ status: 'sukses' })
-                        }
-                    })
-                }
-            })
-        }
-    })
-})
-
-
-
+//     db.query(getCartQuantity, (err, result) => {
+//         if (err) {
+//             throw err;
+//         } else {
+//             console.log('resultnya', result);
+//             quantityCart = result[0].quantity;
+//             const setStatusCart = `UPDATE cart SET cart.quantity = ${quantityCart - 1} WHERE cart.id_product = ${id_product} and id_user = ${id_user} and status = 1`
+//             db.query(setStatusCart, (err, result) => {
+//                 if (err) {
+//                     throw err;
+//                 } else {
+//                     db.query(getQuantityProduct, (err, result2) => {
+//                         if (err) {
+//                             throw err;
+//                         } else {
+//                             quantityProduct = result2[0].quantity
+//                             let setQuantity = `UPDATE product SET product.quantity = ${quantityProduct + 1} WHERE product.id = ${id_product}`
+//                             db.query(setQuantity, (err, result3) => {
+//                                 if (err) {
+//                                     throw err;
+//                                 }
+//                             })
+//                             res.send({ status: 'sukses' })
+//                         }
+//                     })
+//                 }
+//             })
+//         }
+//     })
+// })
 
 
 // GET CART 
@@ -422,31 +420,32 @@ router.get('/getItemCart/:id', (req, res) => {
 
 //  ADD INVOICE
 router.post('/addToInvoice', (req, res) => {
-    const { id_user, idInvoice, Alamat, Name, Phone, Total, idCart } = req.body;
+    const { id_user, Alamat, Name, Phone, Total, idCart } = req.body;
 
     const newDate = new Date();
     const date = newDate.getDate();
     const month = newDate.getMonth();
     const year = newDate.getFullYear();
-    const hour = newDate.getHours();
+    const hour = newDate.getSeconds();
     const setInv = `INV${year}${month}${date}${hour}${id_user}`
     console.log('idCart', idCart[0])
-    res.send({ status: setInv });
     var data = {
         idInvoice: setInv,
-        Alamat: req.body.Alamat,
-        Name: req.body.Name,
-        Phone: req.body.Phone,
-        Total: req.body.Total
+        Alamat: Alamat,
+        Name: Name,
+        Phone: Phone,
+        Total: Total,
+        id_user: id_user,
+        status: 1
     }
     var addCart = `INSERT INTO invoice set ?`
     db.query(addCart, data, (err, result) => {
         if (err) {
             throw err
         } else {
-            for (let i = 0; i < (idCart.length - 1); i++) {
+            for (let i = 0; i < idCart.length; i++) {
                 const dataInvoiceDetail = {
-                    idInvoice: setInv,
+                    id_invoice: setInv,
                     id_cart: idCart[i]
                 }
                 const invoiceDetail = `INSERT INTO invoicedetail set ?`;
@@ -463,7 +462,8 @@ router.post('/addToInvoice', (req, res) => {
                     }
                 })
             }
-            res.send({ status: "done" })
+
+            res.send({ status: "done", invoice: setInv })
         }
     })
 })
@@ -471,29 +471,49 @@ router.post('/addToInvoice', (req, res) => {
 
 
 // GET INVOICE
-router.post('/addToCart', (req, res) => {
-    let id = req.param.id
-    let getcart = `SELECT product.product_name, product.price, SUM(cart.quantity) as quantity, product.nama_gambar FROM product INNER JOIN cart ON cart.id_product = product.id WHERE cart.id_user = ${data} AND cart.status = 1 GROUP BY product.product_name`
-    db.query(addCart, data, (err, result1) => {
+router.get('/getInvoice/:id', (req, res) => {
+    let idInvoice = req.params.id
+    console.log('idInvoice', idInvoice)
+    let getInvoiceDetail = `SELECT product.product_name, product.price, cart.quantity, product.nama_gambar from invoicedetail INNER JOIN cart ON cart.id = invoicedetail.id_cart INNER JOIN product ON cart.id_product = product.id WHERE invoicedetail.id_invoice = '${idInvoice}'`
+    let getInvoice = `SELECT * FROM invoice WHERE idInvoice = '${idInvoice}'`
+    db.query(getInvoice, (err, result) => {
         if (err) {
             throw err;
         } else {
-            db.query(getQuantity, (err, result2) => {
+            db.query(getInvoiceDetail, (err, result1) => {
                 if (err) {
                     throw err;
                 }
+                else {
+                    var done = {
+                        data: result1,
+                        result: result[0]
+                    }
+                    res.send(done)
+                }
             })
-            var done = {
-                status: "sukses"
-            }
-            res.send(done)
+
         }
 
     })
 })
 
-// ADD INVOICE DETAIL
+// FINISH TRANSACTION DETAIL
 
+router.post('/finishTransaction', (req, res) => {
+    const { idInvoice } = req.body
+    const data = [
+        { status: 1 },
+        { idInvoice: idInvoice }
+    ]
+    var updateMinus = `UPDATE invoice SET ? where ?`
+    db.query(updateMinus, data, (err, result) => {
+        if (err) throw err;
+        if (result) {
+            res.send({status: 'success'});
+        }
+    })
+})
 
 
 
